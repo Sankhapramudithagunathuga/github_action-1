@@ -3,7 +3,7 @@ name: Genarate ASCII Artwork
 on: push
 
 jobs:
-    first_job:
+    build_job:
         runs-on: ubuntu-latest
         steps:
         - name: Checkout
@@ -13,4 +13,27 @@ jobs:
           run: |
            sudo apt-get install cowsay -y
            cowsay -f dragon >> dragon.txt
-           cat dragon.txt
+        
+        - name: Sleep for 10 sec
+          run: sleep 10
+          
+    
+    test_job:
+        needs: build_job
+        runs-on: ubuntu-latest
+        steps:
+        # - name: Checkout
+        #   uses: actions/checkout@v4
+           
+        - name: test file exists
+          run: grep -i "dragon" dragon.txt
+    
+    deploy_job:
+        needs: [build_job,test_job]
+        runs-on: ubuntu-latest
+        steps:
+        # - name: Checkout
+        #   uses: actions/checkout@v4
+           
+        - name: test file exists
+          run: cat dragon.txt
