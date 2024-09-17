@@ -1,0 +1,21 @@
+name: matrixs workflow
+
+on: 
+    push:
+    workflow_dispatch:
+
+jobs:
+  deploy:
+    strategy:
+     matrix:
+        os: [ubuintu-lastest, windows-latest]
+        images: [hello-world, alpine]
+    runs-on: ${{matrix.os}}
+    steps:
+      - name: echo Docker details
+        run: docker info
+        
+      - name: Rune images on ${{ matrix.os}}
+        run: docker run ${{ matrix.images}}
+            
+            
