@@ -7,9 +7,18 @@ on:
 jobs:
   deploy:
     strategy:
+     fail-fast: false
+     max-parallel: 2
      matrix:
         os: [ubuintu-lastest, windows-latest]
         images: [hello-world, alpine]
+        exclude:
+            - images: alpine
+              os: windows-lastest
+        include:
+            - images: amd64/alpine
+              os: ubuintu-lastest
+
     runs-on: ${{matrix.os}}
     steps:
       - name: echo Docker details
