@@ -10,14 +10,14 @@ jobs:
      fail-fast: false
     #  max-parallel: 2
      matrix:
-        os: [ubuintu-lastest, windows-latest]
+        os: [ubuntu-lastest, windows-latest]
         images: [hello-world, alpine]
         exclude:
             - images: alpine
               os: windows-lastest
         include:
             - images: amd64/alpine
-              os: ubuintu-lastest
+              os: ubuntu-lastest
 
     runs-on: ${{matrix.os}}
     steps:
